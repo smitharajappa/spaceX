@@ -1,0 +1,85 @@
+
+<div class="container-fluid">
+  <div class="title">SpaceX Launch Programs</div>
+  <section class="wrapper">
+    <div class="filter">
+      <div class="header">
+        <div class="title">Filters</div>
+        <p class="h5 filter-title">Launch Year</p>
+        <div class="filter-wrapper">
+          <div class="button" *ngFor="let item of years">
+            <button class="btn" (click)="onYearSelect(item)">{{ item }}</button>
+          </div>
+        </div>
+        <p class="h5 filter-title">Successful Launch</p>
+        <div class="filter-wrapper">
+          <div class="" *ngFor="let item of booleans">
+            <button class="btn" (click)="onSuccessfulLaunch(item)">
+              {{ item }}
+            </button>
+          </div>
+        </div>
+        <p class="h5 filter-title">Successful Landing</p>
+        <div class="filter-wrapper">
+          <div class="" *ngFor="let item of booleans">
+            <button class="btn" (click)="onSuccessfulLanding(item)">
+              {{ item }}
+            </button>
+          </div>
+        </div>
+        <!-- <p class="h5 filter-title">Reset</p> -->
+        <div class="reset">
+          <button class="btn" (click)="reset()">Reset</button>
+        </div>
+      </div>
+    </div>
+    <div class="error" *ngIf="data.length === 0">
+     <p class="h5">No Data</p>
+    </div>
+    <div class="card-wrapper">
+      <div class="card" *ngFor="let item of data">
+        <!-- <div class="card-image"> -->
+          <picture>
+            <source media="(max-width: 1440px)" [srcset]="item.links.mission_patch_small">
+            <source media="(min-width: 1024)" [srcset]="item.links.mission_patch_small">
+              <source media="(min-width: 700)" [srcset]="item.links.mission_patch_small">
+              <source media="(min-width: 50)" [srcset]="item.links.mission_patch_small">
+
+            <img [src]="item.links.mission_patch_small" alt="SpaceX Falcon9">
+          </picture>
+          <!-- <img [srcset]="item.links.mission_patch_small" /> -->
+        <!-- </div> -->
+        <div class="mission-title">
+          <p class="h5">{{ item.mission_name }} #{{ item.flight_number }}</p>
+        </div>
+        <div class="">
+          <p class="h5 mission-headings">
+            Mission Ids:<span class="h5 item"
+              ><ul *ngFor="let i of item.mission_id">
+                <li>{{ i }}</li>
+              </ul></span
+            >
+          </p>
+          <p class="h5 mission-headings">
+            Launch Year:<span class="h5 item"> {{ item.launch_year }}</span>
+          </p>
+          <p class="h5 mission-headings">
+            Successful Launch:<span class="h5 item">
+              {{ item.launch_success !== null ? item.launch_success : 'NA' }}</span
+            >
+          </p>
+          <p class="h5 mission-headings">
+            Successful Landing:<span class="h5 item">
+              {{ item.rocket.first_stage.cores[0].land_success !== null ? item.rocket.first_stage.cores[0].land_success : 'NA'}}</span
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer id="footer" class="footer">
+    <p class="h5 mission-headings">
+      Developed By:<span class="h5 item"> Smitha R</span>
+    </p>
+  </footer>
+</div>
